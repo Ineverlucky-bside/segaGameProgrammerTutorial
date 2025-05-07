@@ -48,7 +48,7 @@ int main()
     }
 
     //获取输入
-    std::cout << "a:left s:right w:up z:down. command?" << std::endl;
+    std::cout << "a:left d:right w:up s:down. command?" << std::endl;
     char input;
     std::cin >> input;
 
@@ -122,9 +122,9 @@ void update(Object* s, char input, int w, int h)
   switch (input)
   {
   case 'a' : dx = -1; break;
-  case 's': dx = 1; break;
+  case 'd': dx = 1; break;
   case 'w': dy = -1; break;
-  case 'z': dy = 1; break;
+  case 's': dy = 1; break;
   }
 
   //查询角色的坐标
@@ -191,24 +191,3 @@ bool checkClear(const Object* s, int width, int height)
   }
   return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
