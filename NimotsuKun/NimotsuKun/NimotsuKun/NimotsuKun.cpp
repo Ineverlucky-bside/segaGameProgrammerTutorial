@@ -11,7 +11,7 @@ const char gStageData[] = "\
 const int gStageWidth = 8;
 const int gStageHeight = 5;
 
-enum Object
+enum Object //枚举就是整数
 {
   OBJ_SPACE,
   OBJ_WALL,
@@ -117,8 +117,8 @@ void draw(const Object* state, int width, int height)
 
 void update(Object* s, char input, int w, int h)
 {
-  int dx = 0;
-  int dy = 0;
+  int dx = 0; //x方向的移动
+  int dy = 0; //y方向的移动
   switch (input)
   {
   case 'a' : dx = -1; break;

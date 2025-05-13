@@ -34,3 +34,86 @@ private:
 	int mSize1;
 };
 
+class State
+{
+public:
+	State(const char* stageData, int size);
+	void update(char input);
+  void draw()const;
+  bool hasCleared() const;
+private:
+	enum Object
+	{
+		OBJ_SPACE,
+    OBJ_WALL,
+    OBJ_BLOCK,
+		OBJ_MAN,
+
+		OBJ_UNKNOWN,
+	};
+  void setSize(const char* stageData, int size);
+	
+	int mWidth;
+  int mHeight;
+	Array2D<Object> mObjects;
+	Array2D<bool> mGoalFlags;
+};
+
+int main(int argc, char** argv)
+{
+	const char* filename = "stageData.txt";
+	if (argc >= 2)
+	{
+		filename = argv[1];
+	}
+	char* stageData;
+	int fileSize;
+  readFile(&stageData, &fileSize, filename);
+	if (!stageData)
+	{
+		cout << "stage file could not be read." << endl;
+		return 1;
+	}
+  State* state = new State(stageData, fileSize);
+
+  //main loop
+	while (true)
+	{
+		state->draw();
+		if (state->hasCleared())
+		{
+			break;
+		}
+    cout << "a:left d:right w:up s:down. command?" << endl;
+		char input;
+    cin >> input;
+		state->update(input);
+	}
+	cout << "Congratulation's! you won." << endl;
+	delete[] stageData;
+	stageData = 0;
+
+	while (true)
+	{
+		;
+	}
+	return 0;
+}
+
+void readFile(char** buffer, int* size, const char* filename)
+{
+	ifstream in(filename);
+	if (!in)
+	{
+		*buffer = 0;
+		*size = 0;
+	}
+	else
+	{
+		in.seekg(0, ifstream::end);
+		*size = static_cast<int>(in.tellg());
+    in.seekg(0, ifstream::beg);
+		*buffer = new char[*size];
+		in.read(*buffer, *size);
+	}
+}
